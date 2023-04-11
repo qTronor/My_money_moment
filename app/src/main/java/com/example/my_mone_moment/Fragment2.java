@@ -22,7 +22,7 @@ public class Fragment2 extends Fragment {
 
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton1);
         fab.setOnClickListener(view1 -> {
-            ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
+            isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
             Snackbar.make(view1, "Fragment2", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 

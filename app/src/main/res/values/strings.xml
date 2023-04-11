@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My_money_moment</string>
+    <string name="app_name">My money moment</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -11,4 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="addnewincfloatbtn">AddNewIncFloatBtn</string>
     <string name="addnewexpfloatbtn">AddNewExpFloatBtn</string>
+    <string name="expense">expense</string>
+    <string name="income">income</string>
 </resources>

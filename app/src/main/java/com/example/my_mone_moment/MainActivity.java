@@ -10,12 +10,17 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 
 public class MainActivity extends FragmentActivity {
 
     private static final int num_pages = 2;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter fragmentStateAdapter;
+
+    private int[] labels = new int[]{R.string.expense, R.string.income};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +30,11 @@ public class MainActivity extends FragmentActivity {
         viewPager2 = findViewById(R.id.pager);
         fragmentStateAdapter = new ScreenSlideAdapter(this);
         viewPager2.setAdapter(fragmentStateAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText(labels[position])).attach();
     }
+
     private class ScreenSlideAdapter extends FragmentStateAdapter{
         public ScreenSlideAdapter(MainActivity mainActivity){
             super(mainActivity);

@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends FragmentActivity {
 
-    private static final int num_pages = 3;
+    private static final int num_pages = 2;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter fragmentStateAdapter;
 
@@ -39,8 +39,6 @@ public class MainActivity extends FragmentActivity {
                     return new Fragment1();
                 case 1:
                     return new Fragment2();
-                case 2:
-                    return new Fragment3();
                 default:
                     return null;
             }

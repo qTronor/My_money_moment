@@ -1,13 +1,15 @@
 package com.example.my_mone_moment;
 
-public class Operation {
+import java.io.Serializable;
+
+public class Operation implements Serializable {
     private String name;
-    private int value;
-    private int date;
+    private String value;
+    private String date;
 
     private int iconResource;
 
-    public Operation(String name, int value, int date) {
+    public Operation(String name, String value, String date) {
         this.name = name;
         this.value = value;
         this.date = date;
@@ -17,22 +19,22 @@ public class Operation {
         return name;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
     public int getIconResource() {
         return iconResource;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

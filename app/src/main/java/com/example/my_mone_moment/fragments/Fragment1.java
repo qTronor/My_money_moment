@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +26,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Fragment1 extends Fragment {
 
     boolean isRotateFloatBtn = false;
-    TextView add_text, cancel_text;
+    TextView add_text, cancel_text, date_text;
+    ImageButton calendarBtn;
+    CalendarView calendarView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,14 +42,11 @@ public class Fragment1 extends Fragment {
         Dialog dialog = new Dialog(this.getContext());
 
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton1);
-        fab.setOnClickListener(view1 -> {
-            isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
-            //Snackbar.make(view1, "Fragment1", Snackbar.LENGTH_LONG)
-                   //.setAction("Action", null).show();
-        });
-        fab.setOnClickListener(new View.OnClickListener() {
+                fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isRotateFloatBtn = ViewAnimation.rotateFab(view, !isRotateFloatBtn);
+
                 dialog.setContentView(R.layout.dialog_add);
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.setCancelable(false);
@@ -50,12 +54,15 @@ public class Fragment1 extends Fragment {
 
                 add_text = dialog.findViewById(R.id.add_text);
                 cancel_text = dialog.findViewById(R.id.cancel_text);
+                date_text = dialog.findViewById(R.id.date_text);
+                calendarBtn = dialog.findViewById(R.id.calendarBtn);
 
                 add_text.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
                         Toast.makeText(getContext(), "Expence added", Toast.LENGTH_SHORT).show();
+                        isRotateFloatBtn = ViewAnimation.rotateFab(view, !isRotateFloatBtn);
                     }
                 });
                 cancel_text.setOnClickListener(new View.OnClickListener() {
@@ -63,9 +70,56 @@ public class Fragment1 extends Fragment {
                     public void onClick(View v) {
                         dialog.dismiss();
                         Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+                        isRotateFloatBtn = ViewAnimation.rotateFab(view, !isRotateFloatBtn);
                     }
                 });
                 dialog.show();
+
+                calendarBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                       Dialog dialog1 = new Dialog(getContext());
+                       CalendarView calendarView;
+
+                        dialog1.setContentView(R.layout.calendar_view);
+                        dialog1.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        dialog1.setCancelable(false);
+                        dialog1.getWindow().getAttributes().windowAnimations = R.style.animation;
+
+                        calendarView = dialog1.findViewById(R.id.calendar);
+
+                        calendarView
+                                .setOnDateChangeListener(
+                                        new CalendarView
+                                                .OnDateChangeListener() {
+                                            @Override
+
+                                            // In this Listener have one method
+                                            // and in this method we will
+                                            // get the value of DAYS, MONTH, YEARS
+                                            public void onSelectedDayChange(
+                                                    @NonNull CalendarView view,
+                                                    int year,
+                                                    int month,
+                                                    int dayOfMonth)
+                                            {
+
+                                                // Store the value of date with
+                                                // format in String type Variable
+                                                // Add 1 in month because month
+                                                // index is start with 0
+                                                String Date = dayOfMonth + "/" + (month + 1) + "/" + year;
+
+                                                // set this date in TextView for Display
+                                                date_text.setText(Date);
+                                                Toast.makeText(getContext(), "Date", Toast.LENGTH_SHORT).show();
+                                                dialog1.dismiss();
+                                            }
+                                        });
+                        dialog1.show();
+                    }
+                });
             }
         });
 

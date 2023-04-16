@@ -20,4 +20,10 @@
     <style name="Theme.My_mone_moment.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.My_mone_moment.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
 </resources>

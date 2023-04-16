@@ -13,4 +13,6 @@
     <string name="addnewexpfloatbtn">AddNewExpFloatBtn</string>
     <string name="expense">expense</string>
     <string name="income">income</string>
+    <string name="amount">Amount</string>
+    <string name="name">Name</string>
 </resources>

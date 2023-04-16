@@ -1,4 +1,4 @@
-package com.example.my_mone_moment;
+package com.example.my_mone_moment.animations;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

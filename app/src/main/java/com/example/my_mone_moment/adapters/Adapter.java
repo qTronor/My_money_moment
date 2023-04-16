@@ -1,4 +1,4 @@
-package com.example.my_mone_moment;
+package com.example.my_mone_moment.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.my_mone_moment.data.Operation;
+import com.example.my_mone_moment.R;
 
 import java.util.ArrayList;
 
@@ -37,7 +40,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Operation currentOp = oplist.get(position);
         holder.name.setText(currentOp.getName());
-        holder.value.setText(currentOp.getValue());
+        holder.value.setText(currentOp.getValue() + "$");
+
+        /*Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(Long.parseLong(currentOp.getDate()));
+        String formattedDate = DateFormat.format("dd/MM/yyyy", calendar).toString();*/
         holder.date.setText(currentOp.getDate());
 
     }

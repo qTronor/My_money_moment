@@ -1,4 +1,4 @@
-package com.example.my_mone_moment;
+package com.example.my_mone_moment.data;
 import java.util.ArrayList;
 
 public class Constants {

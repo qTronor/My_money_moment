@@ -16,4 +16,7 @@
     <string name="amount">Amount</string>
     <string name="name">Name</string>
     <string name="date">Date</string>
+    <string name="calendar_icon">Calendar icon</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="add_btn">Add</string>
 </resources>

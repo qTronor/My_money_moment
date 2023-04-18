@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
 
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_height="50dp"
         android:hint="@string/name"
-        android:inputType="text" />
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <EditText
         android:id="@+id/amount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_height="50dp"
         android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:hint="@string/amount"
-        android:inputType="number" />
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:layout_editor_absoluteX="0dp" />
 
     <EditText
         android:id="@+id/date_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_height="50dp"
         android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:hint="@string/date"
-        android:inputType="text" />
-
+        android:inputType="date|text"
+        app:layout_constraintTop_toBottomOf="@+id/amount"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ImageButton
         android:id="@+id/calendarBtn"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:contentDescription="Calendar icon"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/calendar_icon"
+
         android:scaleType="center"
-        android:src="@drawable/ic_calendar_foreground" />
+        android:src="@drawable/ic_calendar_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_text" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_margin="15dp">
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/add_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="100dp"
-            android:text="Add"
-            android:textColor="#3F51B5"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="185dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="195dp"
+            android:layout_marginEnd="0dp"
+            android:text="@string/cancel_btn" />
 
-        <TextView
-            android:id="@+id/cancel_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="100dp"
-            android:layout_toRightOf="@id/add_text"
-            android:text="Cancel"
-            android:textColor="#FF0000"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="185dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="185dp"
+            android:text="@string/add_btn" />
     </RelativeLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

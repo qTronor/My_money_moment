@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/light_grey"
     android:layout_height="300dp">
 
 
@@ -45,6 +46,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/light_brown"
         android:contentDescription="@string/calendar_icon"
 
         android:scaleType="center"
@@ -68,6 +70,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="195dp"
             android:layout_marginEnd="0dp"
+            android:background="@color/nice_purple"
             android:text="@string/cancel_btn" />
 
         <Button
@@ -77,6 +80,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="185dp"
+            android:background="@color/nice_purple"
+
             android:text="@string/add_btn" />
     </RelativeLayout>
 

@@ -100,7 +100,11 @@ public class Fragment1 extends Fragment {
                                                         int month,
                                                         int dayOfMonth)
                                                 {
-                                                    String Date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                                                    String Date;
+                                                    if(month < 9)
+                                                        Date = dayOfMonth + "/0" + (month + 1) + "/" + year;
+                                                    else
+                                                        Date = dayOfMonth + "/" + (month + 1) + "/" + year;
                                                     date_text.setText(Date);
                                                     Toast.makeText(getContext(), "Date picked", Toast.LENGTH_SHORT).show();
                                                     dialog1.dismiss();

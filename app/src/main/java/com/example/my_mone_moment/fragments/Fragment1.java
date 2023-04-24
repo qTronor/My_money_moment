@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +23,9 @@ import com.example.my_mone_moment.data.Operation;
 import com.example.my_mone_moment.R;
 import com.example.my_mone_moment.animations.ViewAnimation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+
 
 public class Fragment1 extends Fragment {
 
@@ -42,77 +39,56 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
-        Dialog dialog = new Dialog(this.getContext());
+        Dialog expense_dialog = new Dialog(this.getContext());
 
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton1);
                 fab.setOnClickListener(view1 -> {
                     isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
 
-                    dialog.setContentView(R.layout.dialog_add);
-                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    dialog.setCancelable(false);
-                    dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+                    expense_dialog.setContentView(R.layout.dialog_add);
+                    expense_dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    expense_dialog.setCancelable(false);
+                    expense_dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
 
-                    add_text = dialog.findViewById(R.id.addBtn);
-                    cancel_text = dialog.findViewById(R.id.cancelBtn);
-                    date_text = dialog.findViewById(R.id.date_text);
-                    calendarBtn = dialog.findViewById(R.id.calendarBtn);
+                    add_text = expense_dialog.findViewById(R.id.addBtn);
+                    cancel_text = expense_dialog.findViewById(R.id.cancelBtn);
+                    date_text = expense_dialog.findViewById(R.id.date_text);
+                    calendarBtn = expense_dialog.findViewById(R.id.calendarBtn);
 
-                    add_text.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view1) {
-                            dialog.dismiss();
-                            Toast.makeText(getContext(), "Expense added", Toast.LENGTH_SHORT).show();
-                            isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
-                        }
+                    add_text.setOnClickListener(view112 -> {
+                        expense_dialog.dismiss();
+                        Toast.makeText(getContext(), "Expense added", Toast.LENGTH_SHORT).show();
+                        isRotateFloatBtn = ViewAnimation.rotateFab(view112, !isRotateFloatBtn);
                     });
-                    cancel_text.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
-                            isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
-                        }
+                    cancel_text.setOnClickListener(v -> {
+                        expense_dialog.dismiss();
+                        Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+                        isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
                     });
-                    dialog.show();
+                    expense_dialog.show();
 
-                    calendarBtn.setOnClickListener(new View.OnClickListener() {
+                    calendarBtn.setOnClickListener(view113 -> {
+                       Dialog calendar_dialog = new Dialog(getContext());
+                       CalendarView calendarView;
 
-                        @Override
-                        public void onClick(View view1) {
-                           Dialog dialog1 = new Dialog(getContext());
-                           CalendarView calendarView;
+                        calendar_dialog.setContentView(R.layout.calendar_view);
+                        calendar_dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        calendar_dialog.setCancelable(false);
+                        calendar_dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
 
-                            dialog1.setContentView(R.layout.calendar_view);
-                            dialog1.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            dialog1.setCancelable(false);
-                            dialog1.getWindow().getAttributes().windowAnimations = R.style.animation;
+                        calendarView = calendar_dialog.findViewById(R.id.calendar);
 
-                            calendarView = dialog1.findViewById(R.id.calendar);
-
-                            calendarView
-                                    .setOnDateChangeListener(
-                                            new CalendarView
-                                                    .OnDateChangeListener() {
-                                                @Override
-                                                public void onSelectedDayChange(
-                                                        @NonNull CalendarView view1,
-                                                        int year,
-                                                        int month,
-                                                        int dayOfMonth)
-                                                {
-                                                    String Date;
-                                                    if(month < 9)
-                                                        Date = dayOfMonth + "/0" + (month + 1) + "/" + year;
-                                                    else
-                                                        Date = dayOfMonth + "/" + (month + 1) + "/" + year;
-                                                    date_text.setText(Date);
-                                                    Toast.makeText(getContext(), "Date picked", Toast.LENGTH_SHORT).show();
-                                                    dialog1.dismiss();
-                                                }
-                                            });
-                            dialog1.show();
-                        }
+                        calendarView.setOnDateChangeListener((view11, year, month, dayOfMonth) -> {
+                            String Date;
+                            if(month < 9)
+                                Date = dayOfMonth + "/0" + (month + 1) + "/" + year;
+                            else
+                                Date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                            date_text.setText(Date);
+                            Toast.makeText(getContext(), "Date picked", Toast.LENGTH_SHORT).show();
+                            calendar_dialog.dismiss();
+                        });
+                        calendar_dialog.show();
                     });
                 });
 

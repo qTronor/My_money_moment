@@ -52,7 +52,7 @@ public class Fragment1 extends Fragment {
 
                     add_text = expense_dialog.findViewById(R.id.addBtn);
                     cancel_text = expense_dialog.findViewById(R.id.cancelBtn);
-                    date_text = expense_dialog.findViewById(R.id.date_text);
+                    date_text = expense_dialog.findViewById(R.id.dateInputEditText);
                     calendarBtn = expense_dialog.findViewById(R.id.calendarBtn);
 
                     add_text.setOnClickListener(view112 -> {

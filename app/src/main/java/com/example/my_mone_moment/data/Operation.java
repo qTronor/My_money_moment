@@ -1,36 +1,40 @@
 package com.example.my_mone_moment.data;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "operation_table")
 public class Operation implements Serializable {
+    @PrimaryKey(autoGenerate = true)
     private String name;
-    private String value;
+    private int value;
     private String date;
 
-    private int iconResource;
+    private boolean expense;
 
-    public Operation(String name, String value, String date) {
+
+
+    public Operation(String name, int value, String date, boolean expense) {
         this.name = name;
         this.value = value;
         this.date = date;
+        this.expense = expense;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
     public String getDate() {
         return date;
     }
-    public int getIconResource() {
-        return iconResource;
-    }
-
-    public void setValue(String value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
@@ -41,7 +45,11 @@ public class Operation implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public void setIconResource(int iconResource) {
-        this.iconResource = iconResource;
+    public boolean isExpense() {
+        return expense;
+    }
+
+    public void setExpense(boolean expense) {
+        this.expense = expense;
     }
 }

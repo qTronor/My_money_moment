@@ -9,33 +9,29 @@ public class Constants {
         ArrayList<Operation> opList
                 = new ArrayList<Operation>();
         Operation op1 = new Operation("Gym",
-                "20000", "22/12/2002");
+                20000, "22/12/2002", true);
         opList.add(op1);
 
         Operation op2 = new Operation("Grocery",
-                "3000", "22/12/2002");
-        opList.add(op1);
+                3000, "22/12/2002", true);
+        opList.add(op2);
+
         Operation op3 = new Operation("Gym",
-                "20000", "22/12/2002");
-        opList.add(op1);
+                20000, "22/12/2002", true);
+        opList.add(op3);
 
         Operation op4 = new Operation("Grocery",
-                "3000", "22/12/2002");
-        opList.add(op1);
+                3000, "22/12/2002", true);
+        opList.add(op4);
 
         Operation op5 = new Operation("Gym",
-                "20000", "22/12/2002");
-        opList.add(op1);
+                20000, "22/12/2002", true);
+        opList.add(op5);
 
         Operation op6 = new Operation("Grocery",
-                "3000", "22/12/2002");
+                3000, "22/12/2002", true);
+        opList.add(op6);
 
-        Operation op7 = new Operation("Gym",
-                "20000", "22/12/2002");
-        opList.add(op1);
-
-        Operation op8 = new Operation("Grocery",
-                "3000", "22/12/2002");
 
         return opList;
     }

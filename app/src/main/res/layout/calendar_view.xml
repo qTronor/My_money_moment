@@ -1,36 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="352dp"
     android:layout_height="wrap_content"
     android:background="@color/light_grey"
     
     tools:context=".MainActivity">
 
-    <!-- Add TextView to display the date -->
-
-    <!-- Add CalendarView to display the Calendar -->
-
-    <TextView
-        android:id="@+id/date_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="135dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="Set the Date"
-        android:textColor="@android:color/background_dark"
-        android:textStyle="bold" />
 
     <CalendarView
         android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="30dp"
-        android:foregroundGravity="center"></CalendarView>
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></CalendarView>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

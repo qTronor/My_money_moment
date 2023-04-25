@@ -1,6 +1,8 @@
 package com.example.my_mone_moment.fragments;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ public class Fragment1 extends Fragment {
                 fab.setOnClickListener(view1 -> {
                     isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
 
+                    expense_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     expense_dialog.setContentView(R.layout.dialog_add);
                     expense_dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     expense_dialog.setCancelable(false);
@@ -71,6 +74,7 @@ public class Fragment1 extends Fragment {
                        Dialog calendar_dialog = new Dialog(getContext());
                        CalendarView calendarView;
 
+                        calendar_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         calendar_dialog.setContentView(R.layout.calendar_view);
                         calendar_dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         calendar_dialog.setCancelable(false);

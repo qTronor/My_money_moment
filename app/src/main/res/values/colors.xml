@@ -15,6 +15,7 @@
     <color name="light_blue">#50C1E9</color>
     <color name="input_color">#FFF7F7</color>
     <color name="deep_blue">#2c3e4f</color>
+    <color name="dialog_btn">#cfdaec</color>
 
 
 </resources>

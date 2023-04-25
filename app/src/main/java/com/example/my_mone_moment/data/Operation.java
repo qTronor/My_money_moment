@@ -8,6 +8,8 @@ import java.io.Serializable;
 @Entity(tableName = "operation_table")
 public class Operation implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String name;
     private int value;
     private String date;
@@ -16,7 +18,8 @@ public class Operation implements Serializable {
 
 
 
-    public Operation(String name, int value, String date, boolean expense) {
+    public Operation(int id, String name, int value, String date, boolean expense) {
+        this.id = id;
         this.name = name;
         this.value = value;
         this.date = date;
@@ -51,5 +54,13 @@ public class Operation implements Serializable {
 
     public void setExpense(boolean expense) {
         this.expense = expense;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

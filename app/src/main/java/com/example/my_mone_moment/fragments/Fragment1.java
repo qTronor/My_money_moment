@@ -1,47 +1,74 @@
 package com.example.my_mone_moment.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.my_mone_moment.adapters.Adapter;
-import com.example.my_mone_moment.data.Constants;
+import com.example.my_mone_moment.data.OpViewModel;
 import com.example.my_mone_moment.data.Operation;
 import com.example.my_mone_moment.R;
 import com.example.my_mone_moment.animations.ViewAnimation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-
 
 public class Fragment1 extends Fragment {
 
     boolean isRotateFloatBtn = false;
-    TextView date_text;
-    Button add_text, cancel_text;
-    ImageButton calendarBtn;
-    CalendarView calendarView;
+
+    private OpViewModel opViewModel;
+
+    final Adapter adapter = new Adapter(new DiffUtil.ItemCallback<Operation>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Operation oldItem, @NonNull Operation newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Operation oldItem, @NonNull Operation newItem) {
+            return (oldItem.getType().equals(newItem.getType()))
+                    && (oldItem.getAmount().equals(newItem.getAmount()))
+                    && (oldItem.getDate().equals(newItem.getDate()));
+        }
+    });
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_first, container, false);
         Dialog expense_dialog = new Dialog(this.getContext());
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycleView);
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Get a ViewModel from the ViewModelProvider
+        opViewModel = new ViewModelProvider(this.getActivity()).get(OpViewModel.class);
 
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton1);
                 fab.setOnClickListener(view1 -> {
@@ -53,17 +80,36 @@ public class Fragment1 extends Fragment {
                     expense_dialog.setCancelable(false);
                     expense_dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
 
-                    add_text = expense_dialog.findViewById(R.id.addBtn);
-                    cancel_text = expense_dialog.findViewById(R.id.cancelBtn);
-                    date_text = expense_dialog.findViewById(R.id.dateInputEditText);
-                    calendarBtn = expense_dialog.findViewById(R.id.calendarBtn);
+                    Button add_btn = expense_dialog.findViewById(R.id.addBtn);
+                    Button cancel_btn = expense_dialog.findViewById(R.id.cancelBtn);
+                    ImageView calendarBtn = expense_dialog.findViewById(R.id.calendarBtn);
 
-                    add_text.setOnClickListener(view112 -> {
-                        expense_dialog.dismiss();
-                        Toast.makeText(getContext(), "Expense added", Toast.LENGTH_SHORT).show();
-                        isRotateFloatBtn = ViewAnimation.rotateFab(view112, !isRotateFloatBtn);
+                    TextView type_text = expense_dialog.findViewById(R.id.nameInputEditText);
+                    TextView amount_text = expense_dialog.findViewById(R.id.amountInputEditText);
+                    TextView date_text = expense_dialog.findViewById(R.id.dateInputEditText);
+
+
+                    add_btn.setOnClickListener(view112 -> {
+                        opViewModel.getAllOperations().observe(getViewLifecycleOwner(), operations -> {adapter.submitList(operations);});
+                        if (TextUtils.isEmpty(type_text.getText()) ||
+                                TextUtils.isEmpty(amount_text.getText()) ||
+                                TextUtils.isEmpty(date_text.getText()))
+                            Toast.makeText(getContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                        else{
+                            Operation operation = new Operation(
+                                    type_text.getText().toString(),
+                                    amount_text.getText().toString(),
+                                    date_text.getText().toString(),
+                                    true);
+
+                            opViewModel.insert(operation);
+
+                            expense_dialog.dismiss();
+                            isRotateFloatBtn = ViewAnimation.rotateFab(view112, !isRotateFloatBtn);
+                            Toast.makeText(getContext(), "Expense added", Toast.LENGTH_SHORT).show();
+                        }
                     });
-                    cancel_text.setOnClickListener(v -> {
+                    cancel_btn.setOnClickListener(v -> {
                         expense_dialog.dismiss();
                         Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
                         isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
@@ -97,24 +143,5 @@ public class Fragment1 extends Fragment {
                 });
 
         return view;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
-        super.onViewCreated(view, savedInstanceState);
-        // getting the opList
-        ArrayList<Operation> opList
-                = Constants.getOperationData();
-        // Assign opList to ItemAdapter
-        Adapter itemAdapter = new Adapter(opList);
-        // Set the LayoutManager that
-        // this RecyclerView will use.
-        RecyclerView recyclerView
-                = view.findViewById(R.id.recycleView);
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext()));
-        // adapter instance is set to the
-        // recyclerview to inflate the items.
-        recyclerView.setAdapter(itemAdapter);
     }
 }

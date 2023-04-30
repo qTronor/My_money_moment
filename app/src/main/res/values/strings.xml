@@ -19,4 +19,9 @@
     <string name="calendar_icon">Calendar icon</string>
     <string name="cancel_btn">Cancel</string>
     <string name="add_btn">Add</string>
+    <string name="date_hint">Date</string>
+    <string name="amount_hint">Amount</string>
+    <string name="name_hint">Type</string>
+    <string name="list_btn">List button</string>
+    <string name="menu_icon">menu icon</string>
 </resources>

@@ -1,7 +1,7 @@
 package com.example.my_mone_moment.data;
 
+import android.app.Application;
 import android.content.Context;
-import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Dao;
@@ -10,35 +10,51 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Operation.class}, version = 1)
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+@Database(entities = {Operation.class}, version = 1, exportSchema = true)
 public abstract class OperationsDB extends RoomDatabase {
 
-    private static OperationsDB operationsDB;
     public abstract OpDao opDao();
 
-    public static synchronized OperationsDB getOperationsDB(Context context){
-        if(operationsDB == null) {
-            operationsDB = Room.databaseBuilder(context.getApplicationContext(), OperationsDB.class, "operation_table")
-                    .fallbackToDestructiveMigration().addCallback(roomCallback).build();
+    private static  volatile OperationsDB INSTANCE;
+    private static final int NUMBER_OF_THREADS = 4;
+    static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
+    public static OperationsDB getOperationsDB(final Context context){
+        if (INSTANCE == null) {
+            synchronized (OperationsDB.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                    OperationsDB.class, "operation_database")
+                            .build();
+                }
+            }
         }
-        return operationsDB;
+        return INSTANCE;
     }
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDbAsyncTask(operationsDB).execute();
+
+            // If you want to keep data through app restarts,
+            // comment out the following block
+            databaseWriteExecutor.execute(() -> {
+                // Populate the database in the background.
+                // If you want to start with more words, just add them.
+                OpDao dao = INSTANCE.opDao();
+                dao.deleteAll();
+
+                Operation operation = new Operation("Gym", "2000", "12/12/2023", true);
+                dao.insert(operation);
+                operation = new Operation("Grocery", "150", "15/12/2023", true);
+                dao.insert(operation);
+            });
         }
     };
 
-    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        PopulateDbAsyncTask(OperationsDB operationsDB) {
-            OpDao dao = operationsDB.opDao();
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }
 }
 

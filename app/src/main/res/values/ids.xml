@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="total_btn" type="id">Total</item>
+    <item name="menu_btn" type="id">Menu</item>
+    <item name="receipt_btn" type="id">Receipt</item>
+</resources>

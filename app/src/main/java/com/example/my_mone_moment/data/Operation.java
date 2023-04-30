@@ -1,5 +1,7 @@
 package com.example.my_mone_moment.data;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,46 +9,46 @@ import java.io.Serializable;
 
 @Entity(tableName = "operation_table")
 public class Operation implements Serializable {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
 
-    private String name;
-    private int value;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "type")
+    private String type;
+    private String amount;
     private String date;
 
     private boolean expense;
 
 
 
-    public Operation(int id, String name, int value, String date, boolean expense) {
-        this.id = id;
-        this.name = name;
-        this.value = value;
+    public Operation(String type, String amount, String date, boolean expense) {
+        this.type = type;
+        this.amount = amount;
         this.date = date;
         this.expense = expense;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public int getValue() {
-        return value;
+    public String getAmount() {
+        return amount;
     }
 
     public String getDate() {
         return date;
     }
-    public void setValue(int value) {
-        this.value = value;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     public void setDate(String date) {
         this.date = date;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setType(String type) {
+        this.type = type;
     }
     public boolean isExpense() {
         return expense;
@@ -56,11 +58,4 @@ public class Operation implements Serializable {
         this.expense = expense;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

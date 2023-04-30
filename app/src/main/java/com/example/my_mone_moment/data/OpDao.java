@@ -15,7 +15,7 @@ public interface OpDao {
     @Query("SELECT * FROM operation_table")
     LiveData<List<Operation>> getAll();
 
-    @Query("SELECT * FROM operation_table WHERE name = :name")
+    @Query("SELECT * FROM operation_table WHERE type = :name")
     Operation getById(String name);
 
 
@@ -30,4 +30,7 @@ public interface OpDao {
 
     @Delete
     void delete(Operation operation);
+
+    @Query("DELETE FROM operation_table")
+    void deleteAll();
 }

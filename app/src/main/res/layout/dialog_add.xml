@@ -88,7 +88,7 @@
         android:layout_height="53dp"
 
         android:layout_marginEnd="12dp"
-        android:background="@drawable/calendar_btn"
+        android:background="@drawable/round_style"
         android:contentDescription="@string/calendar_icon"
 
         android:scaleType="center"

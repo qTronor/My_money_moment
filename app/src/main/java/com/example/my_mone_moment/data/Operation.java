@@ -9,21 +9,19 @@ import java.io.Serializable;
 
 @Entity(tableName = "operation_table")
 public class Operation implements Serializable {
-
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "type")
+    @ColumnInfo(name = "Operation type")
     private String type;
-    private String amount;
+    private String value;
     private String date;
-
     private boolean expense;
 
 
 
-    public Operation(String type, String amount, String date, boolean expense) {
+    public Operation( String type, String value, String date, boolean expense) {
         this.type = type;
-        this.amount = amount;
+        this.value = value;
         this.date = date;
         this.expense = expense;
     }
@@ -32,15 +30,15 @@ public class Operation implements Serializable {
         return type;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getValue() {
+        return value;
     }
 
     public String getDate() {
         return date;
     }
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public void setDate(String date) {

@@ -6,9 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.my_mone_moment.adapters.Adapter;
 import com.example.my_mone_moment.fragments.Fragment1;
 import com.example.my_mone_moment.fragments.Fragment2;
 import com.google.android.material.tabs.TabLayout;

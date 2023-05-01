@@ -15,11 +15,7 @@ public interface OpDao {
     @Query("SELECT * FROM operation_table")
     LiveData<List<Operation>> getAll();
 
-    @Query("SELECT * FROM operation_table WHERE type = :name")
-    Operation getById(String name);
-
-
-    @Query("SELECT * FROM operation_table WHERE expense = :expense")
+    @Query("SELECT * FROM operation_table WHERE expense LIKE :expense")
     Operation getByExpense(String expense);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -30,7 +26,4 @@ public interface OpDao {
 
     @Delete
     void delete(Operation operation);
-
-    @Query("DELETE FROM operation_table")
-    void deleteAll();
 }

@@ -1,6 +1,9 @@
 package com.example.my_mone_moment.adapters;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -8,29 +11,40 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.my_mone_moment.data.Operation;
+import com.example.my_mone_moment.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Adapter extends ListAdapter<Operation, MyViewHolder> {
-
+public class Adapter extends ListAdapter<Operation, OpViewHolder> {
     public Adapter(@NonNull DiffUtil.ItemCallback<Operation> diffCallback) {
         super(diffCallback);
     }
 
-    // This method creates a new ViewHolder object for each item in the RecyclerView
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return MyViewHolder.create(parent);
-    }
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Operation current = getItem(position);
-        holder.bind(current.getType(), current.getAmount(), current.getDate());
+    public OpViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return OpViewHolder.create(parent);
     }
 
     @Override
-    public int getItemCount() {
-        return 0;
+    public void onBindViewHolder(@NonNull OpViewHolder holder, int position) {
+        Operation current = getItem(position);
+        holder.bind(current.getType(), current.getValue(), current.getDate());
     }
+
+    public static class OpDiff extends DiffUtil.ItemCallback<Operation> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Operation oldItem, @NonNull Operation newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Operation oldItem, @NonNull Operation newItem) {
+            return oldItem.getDate().equals(newItem.getDate()) &&
+                    oldItem.getValue().equals(newItem.getValue()) &&
+                    oldItem.getDate().equals(newItem.getDate());
+        }
+    }
+
 }

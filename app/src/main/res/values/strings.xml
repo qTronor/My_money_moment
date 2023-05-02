@@ -22,4 +22,6 @@
     <string name="date_hint">Date</string>
     <string name="amount_hint">Amount</string>
     <string name="name_hint">Type</string>
+    <string name="list_btn">list_btn</string>
+    <string name="menu_icon">menu_btn</string>
 </resources>

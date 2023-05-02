@@ -41,12 +41,11 @@ public class Fragment1 extends Fragment {
 
     private ViewModel viewModel;
 
-    Adapter itemAdapter;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
+        Toast.makeText(getContext(), "First", Toast.LENGTH_SHORT).show();
 
         RecyclerView recyclerView = view.findViewById(R.id.recycleView);
         final Adapter adapter = new Adapter(new Adapter.OpDiff());
@@ -80,15 +79,13 @@ public class Fragment1 extends Fragment {
                     EditText amount_text = expense_dialog.findViewById(R.id.amountInputEditText);
                     EditText date_text = expense_dialog.findViewById(R.id.dateInputEditText);
 
-                    String type = type_text.getText().toString();
-                    String amount = amount_text.getText().toString();
-                    String date = date_text.getText().toString();
-
-
-
                     add_btn.setOnClickListener(view112 -> {
-                        if(type.isEmpty())
-                            Toast.makeText(getContext(), "Empty Fields", Toast.LENGTH_SHORT).show();
+                        String type = type_text.getText().toString().trim();
+                        String amount = amount_text.getText().toString().trim();
+                        String date = date_text.getText().toString().trim();
+
+                        if(type.length() == 0 || amount.length() == 0 || date.length() == 0)
+                            Toast.makeText(getContext(), "Field are empty", Toast.LENGTH_SHORT).show();
                         else {
 
                             viewModel.insert(new Operation(type, amount, date, true));

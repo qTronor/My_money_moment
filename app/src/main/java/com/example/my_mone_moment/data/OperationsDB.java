@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Operation.class}, version = 1)
+@Database(entities = {Operation.class}, version = 1, exportSchema = false)
 public abstract class OperationsDB extends RoomDatabase {
 
     private static volatile OperationsDB INSTANCE;
@@ -22,12 +22,13 @@ public abstract class OperationsDB extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     public abstract OpDao opDao();
 
-    static synchronized OperationsDB getDatabase(final Context context) {
+    static OperationsDB getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (OperationsDB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     OperationsDB.class, "operation_database")
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -35,5 +36,25 @@ public abstract class OperationsDB extends RoomDatabase {
         return INSTANCE;
     }
 
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+
+            // If you want to keep data through app restarts,
+            // comment out the following block
+            databaseWriteExecutor.execute(() -> {
+                // Populate the database in the background.
+                // If you want to start with more words, just add them.
+                OpDao dao = INSTANCE.opDao();
+                dao.deleteAll();
+
+                Operation operation = new Operation("Hello", "222", "12/12/2002", true);
+                dao.insert(operation);
+                operation = new Operation("World", "111", "30/12/0000", false);
+                dao.insert(operation);
+            });
+        }
+    };
 }
 

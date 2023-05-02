@@ -26,4 +26,8 @@ public interface OpDao {
 
     @Delete
     void delete(Operation operation);
+
+    @Query("DELETE FROM operation_table")
+    void deleteAll();
+
 }

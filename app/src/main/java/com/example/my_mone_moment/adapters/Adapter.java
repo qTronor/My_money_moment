@@ -34,6 +34,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.OpViewHolder> {
         notifyDataSetChanged();
     }
 
+    public Operation getOperationAtPosition (int position) {
+        return operationList.get(position);
+    }
+
+
     @NonNull
     @Override
     public OpViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

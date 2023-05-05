@@ -31,8 +31,12 @@ public class OperationRepository {
     }
 
     void delete(Operation operation){
-        opDao.delete(operation);
+        new deleteOperationAsyncTask(opDao).execute(operation);
     }
+    public void deleteWord(Operation word)  {
+        new deleteOperationAsyncTask(opDao).execute(word);
+    }
+
 
 
     LiveData<List<Operation>> getAllOperations(){
@@ -45,6 +49,7 @@ public class OperationRepository {
         insertAsyncTask(OpDao dao) {
             mAsyncTaskDao = dao;
         }
+
 
         @Override
         protected Void doInBackground(final Operation... params) {
@@ -66,6 +71,21 @@ public class OperationRepository {
             return null;
         }
     }
+
+    private static class deleteOperationAsyncTask extends AsyncTask<Operation, Void, Void> {
+        private OpDao mAsyncTaskDao;
+
+        deleteOperationAsyncTask(OpDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Operation... params) {
+            mAsyncTaskDao.delete(params[0]);
+            return null;
+        }
+    }
+
 
 
 }

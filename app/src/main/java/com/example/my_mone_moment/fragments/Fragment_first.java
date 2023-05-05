@@ -41,7 +41,7 @@ public class Fragment_first extends Fragment {
 
     private ViewModel viewModel;
 
-    //Adapter adapter;
+    Adapter adapter;
 
     @Nullable
     @Override
@@ -50,7 +50,7 @@ public class Fragment_first extends Fragment {
 
         //Adding RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recycleView);
-        final Adapter adapter = new Adapter(getContext());
+        adapter = new Adapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -99,8 +99,6 @@ public class Fragment_first extends Fragment {
                 if (type.length() == 0 || amount.length() == 0 || date.length() == 0)
                     Toast.makeText(getContext(), "Field are empty", Toast.LENGTH_SHORT).show();
                 else {
-                    //MyThread thread = new MyThread(new Operation(type, amount, date, true), viewModel);
-                    //thread.runInsert();
                     viewModel.insert(new Operation(type, amount, date, true));
 
                     expense_dialog.dismiss();
@@ -161,6 +159,9 @@ public class Fragment_first extends Fragment {
                 return true;
 
             case R.id.delete_operation:
+                Operation operation = adapter.getOperationAtPosition(position);
+                viewModel.delete(operation);
+
                 Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
                 return true;
 

@@ -20,6 +20,7 @@ public abstract class OperationsDB extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
     public abstract OpDao opDao();
 
     static OperationsDB getDatabase(final Context context) {
@@ -28,6 +29,7 @@ public abstract class OperationsDB extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     OperationsDB.class, "operation_database")
+                            .fallbackToDestructiveMigration()
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -37,6 +39,13 @@ public abstract class OperationsDB extends RoomDatabase {
     }
 
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+
+        @Override
+        public void onOpen (@NonNull SupportSQLiteDatabase db){
+            super.onOpen(db);
+            new PopulateDbAsync(INSTANCE).execute();
+        }
+
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -56,5 +65,29 @@ public abstract class OperationsDB extends RoomDatabase {
             });
         }
     };
+
+
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final OpDao mDao;
+        Operation[] operations = {new Operation("Hello", "222", "12/12/2002", true),
+                                new Operation("World", "111", "30/12/0000", true)};
+
+        PopulateDbAsync(OperationsDB db) {
+            mDao = db.opDao();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            // If we have no words, then create the initial list of words
+            if (mDao.getAnyWord().length < 1) {
+                for (int i = 0; i <= operations.length - 1; i++) {
+                    mDao.insert(operations[i]);
+                }
+            }
+            return null;
+        }
+    }
+
 }
 

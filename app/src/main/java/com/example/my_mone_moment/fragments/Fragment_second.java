@@ -14,12 +14,12 @@ import com.example.my_mone_moment.animations.ViewAnimation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class Fragment2 extends Fragment {
+public class Fragment_second extends Fragment {
     boolean isRotateFloatBtn = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_second, container, false);
 
 
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton1);

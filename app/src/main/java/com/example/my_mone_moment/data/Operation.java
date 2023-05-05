@@ -19,7 +19,7 @@ public class Operation implements Serializable {
 
 
 
-    public Operation( String type, String value, String date, boolean expense) {
+    public Operation(@NonNull String type, String value, String date, boolean expense) {
         this.type = type;
         this.value = value;
         this.date = date;

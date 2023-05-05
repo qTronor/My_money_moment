@@ -6,14 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.my_mone_moment.adapters.Adapter;
-import com.example.my_mone_moment.fragments.Fragment1;
-import com.example.my_mone_moment.fragments.Fragment2;
+import com.example.my_mone_moment.fragments.Fragment_first;
+import com.example.my_mone_moment.fragments.Fragment_second;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -49,9 +46,9 @@ public class MainActivity extends FragmentActivity {
         public Fragment createFragment(int position) {
             switch(position) {
                 case 0:
-                    return new Fragment1();
+                    return new Fragment_first();
                 case 1:
-                    return new Fragment2();
+                    return new Fragment_second();
                 default:
                     return null;
             }

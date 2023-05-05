@@ -24,4 +24,7 @@
     <string name="name_hint">Type</string>
     <string name="list_btn">list_btn</string>
     <string name="menu_icon">menu_btn</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete all</string>
 </resources>

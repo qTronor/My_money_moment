@@ -18,6 +18,10 @@ public interface OpDao {
     @Query("SELECT * FROM operation_table WHERE expense LIKE :expense")
     Operation getByExpense(String expense);
 
+    @Query("SELECT * from operation_table LIMIT 1")
+    Operation[] getAnyWord();
+
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Operation operation);
 

@@ -12,12 +12,15 @@ public class ViewModel extends AndroidViewModel {
 
     public ViewModel(Application application){
         super(application);
-        OpDao opDao = OperationsDB.getDatabase(application).opDao();
-        operationRepository = new OperationRepository(opDao);
-        this.allOperationsList = operationRepository.getAllOperations();
+        operationRepository = new OperationRepository(application);
+        allOperationsList = operationRepository.getAllOperations();
     }
 
     public void insert(Operation operation) { operationRepository.insert(operation); }
+
+    public void delete(Operation operation) {operationRepository.delete(operation);}
+
+    public void deleteAll() {operationRepository.deleteAll();}
 
     public LiveData<List<Operation>> getAllOperations() { return allOperationsList; }
 

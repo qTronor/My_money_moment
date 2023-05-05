@@ -1,5 +1,8 @@
 package com.example.my_mone_moment.data;
 
+import android.app.Application;
+import android.os.AsyncTask;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -7,15 +10,22 @@ import java.util.List;
 public class OperationRepository {
 
     private OpDao opDao;
+    private LiveData<List<Operation>> allOperations;
 
-    OperationRepository(OpDao opDao){
-        this.opDao = opDao;
+
+    OperationRepository(Application application){
+        OperationsDB db = OperationsDB.getDatabase(application);
+        opDao = db.opDao();
+        allOperations = opDao.getAll();
     }
 
-    void insert(Operation operation){
-        opDao.insert(operation);
+    public void insert (Operation operation) {
+        new insertAsyncTask(opDao).execute(operation);
     }
 
+    public void deleteAll()  {
+        new deleteAllWordsAsyncTask(opDao).execute();
+    }
     void update(Operation operation){
         opDao.insert(operation);
     }
@@ -24,7 +34,38 @@ public class OperationRepository {
         opDao.delete(operation);
     }
 
+
     LiveData<List<Operation>> getAllOperations(){
         return opDao.getAll();
     }
+
+    private static class insertAsyncTask extends AsyncTask<Operation, Void, Void> {
+        private OpDao mAsyncTaskDao;
+
+        insertAsyncTask(OpDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Operation... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAllWordsAsyncTask extends AsyncTask<Void, Void, Void> {
+        private OpDao mAsyncTaskDao;
+
+        deleteAllWordsAsyncTask(OpDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteAll();
+            return null;
+        }
+    }
+
+
 }

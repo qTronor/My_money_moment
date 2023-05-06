@@ -46,7 +46,7 @@ public abstract class OperationsDB extends RoomDatabase {
             new PopulateDbAsync(INSTANCE).execute();
         }
 
-        @Override
+        /*@Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
@@ -58,12 +58,12 @@ public abstract class OperationsDB extends RoomDatabase {
                 OpDao dao = INSTANCE.opDao();
                 dao.deleteAll();
 
-                Operation operation = new Operation("Hello", "222", "12/12/2002", true);
+                Operation operation = new Operation("Hello", 222, "12/12/2002", true);
                 dao.insert(operation);
-                operation = new Operation("World", "111", "30/12/0000", false);
+                operation = new Operation("World", 111, "30/12/0000", false);
                 dao.insert(operation);
             });
-        }
+        }*/
     };
 
 
@@ -71,7 +71,7 @@ public abstract class OperationsDB extends RoomDatabase {
 
         private final OpDao mDao;
         Operation[] operations = {new Operation("Hello", "222", "12/12/2002", true),
-                                new Operation("World", "111", "30/12/0000", true)};
+                                new Operation("World", "111", "30/12/0000", false)};
 
         PopulateDbAsync(OperationsDB db) {
             mDao = db.opDao();

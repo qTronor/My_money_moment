@@ -29,18 +29,19 @@ public class OperationRepository {
     void update(Operation operation){
         opDao.insert(operation);
     }
-
     void delete(Operation operation){
         new deleteOperationAsyncTask(opDao).execute(operation);
     }
-    public void deleteWord(Operation word)  {
-        new deleteOperationAsyncTask(opDao).execute(word);
-    }
 
-
-
+    LiveData<Integer> getSumExpense(){ return opDao.getSumExpense(); }
     LiveData<List<Operation>> getAllOperations(){
         return opDao.getAll();
+    }
+    LiveData<List<Operation>> getAllOperationsExpense(){
+        return opDao.getAllExpense();
+    }
+    LiveData<List<Operation>> getAllOperationsIncome(){
+        return opDao.getAllIncome();
     }
 
     private static class insertAsyncTask extends AsyncTask<Operation, Void, Void> {
@@ -85,7 +86,4 @@ public class OperationRepository {
             return null;
         }
     }
-
-
-
 }

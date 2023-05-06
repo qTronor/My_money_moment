@@ -43,11 +43,12 @@
             <!--TextView for displaying Value -->
             <TextView
                 android:id="@+id/tvValue"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
+                android:layout_marginEnd="10dp"
                 tools:text="Value" />
 
             <!--TextView for displaying Date -->

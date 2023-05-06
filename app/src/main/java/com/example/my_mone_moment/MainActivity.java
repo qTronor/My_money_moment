@@ -1,18 +1,28 @@
 package com.example.my_mone_moment;
 
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.my_mone_moment.data.ViewModel;
 import com.example.my_mone_moment.fragments.Fragment_first;
 import com.example.my_mone_moment.fragments.Fragment_second;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends FragmentActivity {
@@ -21,6 +31,10 @@ public class MainActivity extends FragmentActivity {
     private ViewPager2 viewPager2;
     private FragmentStateAdapter fragmentStateAdapter;
 
+    private TextView sum_textView;
+    private ViewModel viewModel;
+    //private int total_sum;
+
     private int[] labels = new int[]{R.string.expense, R.string.income};
 
     @Override
@@ -28,12 +42,30 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        LiveData<Integer> totalSum = viewModel.getExpenseSum();
+
         viewPager2 = findViewById(R.id.pager);
         fragmentStateAdapter = new ScreenSlideAdapter(this);
         viewPager2.setAdapter(fragmentStateAdapter);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText(labels[position])).attach();
+
+        sum_textView = findViewById(R.id.sum_textView);
+
+        totalSum.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if(integer == null) {
+                    //Toast.makeText(MainActivity.this, "0", Toast.LENGTH_SHORT).show();
+                    sum_textView.setText("0");
+                }
+                else
+                    sum_textView.setText(String.valueOf(integer));
+            }
+        });
+
     }
 
     private class ScreenSlideAdapter extends FragmentStateAdapter{

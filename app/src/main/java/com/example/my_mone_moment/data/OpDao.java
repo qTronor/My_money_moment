@@ -15,8 +15,17 @@ public interface OpDao {
     @Query("SELECT * FROM operation_table")
     LiveData<List<Operation>> getAll();
 
+    @Query("SELECT * FROM operation_table WHERE expense LIKE 1")
+    LiveData<List<Operation>> getAllExpense();
+
+    @Query("SELECT * FROM operation_table WHERE expense LIKE 0")
+    LiveData<List<Operation>> getAllIncome();
+
     @Query("SELECT * FROM operation_table WHERE expense LIKE :expense")
-    Operation getByExpense(String expense);
+    Operation getByExpense(boolean expense);
+
+    @Query("SELECT SUM(CASE WHEN expense = 1 THEN value ELSE -value END) FROM operation_table")
+    LiveData<Integer> getSumExpense();
 
     @Query("SELECT * from operation_table LIMIT 1")
     Operation[] getAnyWord();

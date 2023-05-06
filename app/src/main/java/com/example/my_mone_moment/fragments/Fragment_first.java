@@ -58,12 +58,7 @@ public class Fragment_first extends Fragment {
         registerForContextMenu(recyclerView);
 
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
-        viewModel.getAllOperations().observe(getViewLifecycleOwner(), new Observer<List<Operation>>() {
-            @Override
-            public void onChanged(List<Operation> operationList) {
-                adapter.setOperations(operationList);
-            }
-        });
+        viewModel.getAllOperationsExpense().observe(getViewLifecycleOwner(), operationList -> adapter.setOperations(operationList));
 
         Dialog expense_dialog = new Dialog(this.getContext());
 
@@ -104,7 +99,7 @@ public class Fragment_first extends Fragment {
                     expense_dialog.dismiss();
                     Toast.makeText(getContext(), "Expense added", Toast.LENGTH_SHORT).show();
                     //Change the state of floating btn
-                    isRotateFloatBtn = ViewAnimation.rotateFab(view112, !isRotateFloatBtn);
+                    isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
                 }
             });
             cancel_btn.setOnClickListener(v -> {

@@ -24,7 +24,7 @@ public interface OpDao {
     @Query("SELECT * FROM operation_table WHERE expense LIKE :expense")
     Operation getByExpense(boolean expense);
 
-    @Query("SELECT SUM(CASE WHEN expense = 1 THEN value ELSE -value END) FROM operation_table")
+    @Query("SELECT SUM(CASE WHEN expense = 1 THEN -value ELSE +value END) FROM operation_table")
     LiveData<Integer> getSumExpense();
 
     @Query("SELECT * from operation_table LIMIT 1")

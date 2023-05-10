@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/background_green</item>
-        <item name="colorPrimaryDark">@color/nice_purple</item>
+        <item name="colorPrimary">@color/material_dynamic_primary30</item>
+        <item name="colorPrimaryDark">@color/material_dynamic_primary50</item>
         <item name="colorAccent">@color/background_blue</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/input_color"
+        android:background="#F0F2F9"
         android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp"

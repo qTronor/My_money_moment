@@ -5,6 +5,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -25,7 +30,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import org.w3c.dom.Text;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
+
+    private DrawerLayout drawer;
 
     private static final int num_pages = 2;
     private ViewPager2 viewPager2;
@@ -42,6 +49,15 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
         LiveData<Integer> totalSum = viewModel.getExpenseSum();
 
@@ -54,16 +70,13 @@ public class MainActivity extends FragmentActivity {
 
         sum_textView = findViewById(R.id.sum_textView);
 
-        totalSum.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if(integer == null) {
-                    //Toast.makeText(MainActivity.this, "0", Toast.LENGTH_SHORT).show();
-                    sum_textView.setText("0");
-                }
-                else
-                    sum_textView.setText(String.valueOf(integer));
+        totalSum.observe(this, integer -> {
+            if(integer == null) {
+                //Toast.makeText(MainActivity.this, "0", Toast.LENGTH_SHORT).show();
+                sum_textView.setText("0");
             }
+            else
+                sum_textView.setText(String.valueOf(integer));
         });
 
     }
@@ -89,6 +102,15 @@ public class MainActivity extends FragmentActivity {
         @Override
         public int getItemCount() {
             return num_pages;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 

@@ -34,7 +34,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.OpViewHolder> {
         notifyDataSetChanged();
     }
 
-    public Operation getOperationAtPosition (int position) {
+    public Operation getOperationAtPosition(int position) {
         return operationList.get(position);
     }
 
@@ -113,8 +113,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.OpViewHolder> {
 
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-            contextMenu.add(Menu.NONE, R.id.update_operation,
-                    Menu.NONE, R.string.update);
             contextMenu.add(Menu.NONE, R.id.delete_operation,
                     Menu.NONE, R.string.delete);
             contextMenu.add(Menu.NONE, R.id.delete_all_operation,

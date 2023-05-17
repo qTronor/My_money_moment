@@ -5,25 +5,12 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_message"
-            android:title="Message" />
-        <item
-            android:id="@+id/nav_chat"
-            android:title="Chat" />
-        <item
             android:id="@+id/nav_profile"
-            android:title="Profile" />
+            android:title="Profile"
+            android:icon="@drawable/ic_person_nav"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Settings"
+            android:icon="@drawable/ic_settings_nav"/>
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:title="Send" />
-        </menu>
-    </item>
-
 </menu>

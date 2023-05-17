@@ -10,18 +10,6 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -54,7 +42,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#6FABC2"
+                android:background="@color/toolbar_color"
                 android:elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,15 +55,17 @@
                     android:id="@+id/sum_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:background="@drawable/total_sum_shape"
                     android:clickable="true"
                     android:minWidth="100dp"
                     android:padding="5dp"
-                    android:textColor="@color/input_color"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
                 </TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,7 +94,7 @@
         android:id="@+id/pager"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="98dp"
+        android:layout_marginTop="104dp"
         android:clipToPadding="false"
         android:overScrollMode="ifContentScrolls"
         app:layout_constraintEnd_toEndOf="parent"

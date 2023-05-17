@@ -41,7 +41,7 @@ public class Fragment_first extends Fragment {
 
     private ViewModel viewModel;
 
-    Adapter adapter;
+    private Adapter adapter;
 
     @Nullable
     @Override
@@ -58,7 +58,7 @@ public class Fragment_first extends Fragment {
         registerForContextMenu(recyclerView);
 
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
-        viewModel.getAllOperationsExpense().observe(getViewLifecycleOwner(), operationList -> adapter.setOperations(operationList));
+        viewModel.getAllOperationsExpense().observe(getViewLifecycleOwner(), adapter::setOperations);
 
         Dialog expense_dialog = new Dialog(this.getContext());
 
@@ -94,7 +94,12 @@ public class Fragment_first extends Fragment {
                 if (type.length() == 0 || amount.length() == 0 || date.length() == 0)
                     Toast.makeText(getContext(), "Field are empty", Toast.LENGTH_SHORT).show();
                 else {
-                    viewModel.insert(new Operation(type, amount, date, true));
+                    try {
+                        viewModel.insert(new Operation(type, amount, date, true));
+                    }
+                    catch (Exception e){
+                        Log.d(TAG, "Adding expense: " + e.getMessage());
+                    }
 
                     expense_dialog.dismiss();
                     Toast.makeText(getContext(), "Expense added", Toast.LENGTH_SHORT).show();
@@ -139,7 +144,7 @@ public class Fragment_first extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        int position = -1;
+        int position;
 
         try {
             position = Adapter.getPosition();
@@ -149,10 +154,6 @@ public class Fragment_first extends Fragment {
         }
 
         switch (item.getItemId()){
-            case R.id.update_operation:
-                Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show();
-                return true;
-
             case R.id.delete_operation:
                 Operation operation = adapter.getOperationAtPosition(position);
                 viewModel.delete(operation);

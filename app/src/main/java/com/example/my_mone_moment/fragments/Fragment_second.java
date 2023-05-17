@@ -38,7 +38,7 @@ public class Fragment_second extends Fragment {
 
     private ViewModel viewModel;
 
-    Adapter adapter;
+    private Adapter adapter;
 
     @Nullable
     @Override
@@ -46,7 +46,7 @@ public class Fragment_second extends Fragment {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
 
         //Adding RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.recycleView);
+        RecyclerView recyclerView = view.findViewById(R.id.recycleView_second);
         adapter = new Adapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -55,12 +55,12 @@ public class Fragment_second extends Fragment {
         registerForContextMenu(recyclerView);
 
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
-        viewModel.getAllOperationsIncome().observe(getViewLifecycleOwner(), operationList -> adapter.setOperations(operationList));
+        viewModel.getAllOperationsIncome().observe(getViewLifecycleOwner(), adapter::setOperations);
 
         Dialog expense_dialog = new Dialog(this.getContext());
 
 
-        FloatingActionButton fab = view.findViewById(R.id.floatingActionButton1);
+        FloatingActionButton fab = view.findViewById(R.id.floatingActionButton2);
         fab.setOnClickListener(view1 -> {
             //Change the state of floating btn
             isRotateFloatBtn = ViewAnimation.rotateFab(view1, !isRotateFloatBtn);
@@ -91,7 +91,12 @@ public class Fragment_second extends Fragment {
                 if (type.length() == 0 || amount.length() == 0 || date.length() == 0)
                     Toast.makeText(getContext(), "Field are empty", Toast.LENGTH_SHORT).show();
                 else {
-                    viewModel.insert(new Operation(type, amount, date, false));
+                    try {
+                        viewModel.insert(new Operation(type, amount, date, false));
+                    }
+                    catch (Exception e){
+                        Log.d(TAG, "Adding income: " + e.getMessage());
+                    }
 
                     expense_dialog.dismiss();
                     Toast.makeText(getContext(), "Income added", Toast.LENGTH_SHORT).show();
@@ -136,20 +141,16 @@ public class Fragment_second extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        int position = -1;
+        int position;
 
         try {
-            position = Adapter.getPosition();
+            position = adapter.getPosition();
         } catch (Exception e) {
             Log.d(TAG, e.getLocalizedMessage(), e);
             return super.onContextItemSelected(item);
         }
 
         switch (item.getItemId()){
-            case R.id.update_operation:
-                Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show();
-                return true;
-
             case R.id.delete_operation:
                 Operation operation = adapter.getOperationAtPosition(position);
                 viewModel.delete(operation);

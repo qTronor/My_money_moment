@@ -9,8 +9,8 @@
             android:title="Profile"
             android:icon="@drawable/ic_person_nav"/>
         <item
-            android:id="@+id/nav_settings"
-            android:title="Settings"
-            android:icon="@drawable/ic_settings_nav"/>
+            android:id="@+id/nav_main"
+            android:title="My Expense"
+            android:icon="@drawable/my_expense"/>
     </group>
 </menu>

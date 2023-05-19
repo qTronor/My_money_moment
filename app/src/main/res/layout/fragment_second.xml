@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Fragment_first">
+    tools:context=".fragments.Fragment_second">
 
     <LinearLayout
         android:orientation="vertical"
@@ -14,7 +14,7 @@
 
         <!--RecyclerView-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleView_second"
+            android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/items_list"/>
